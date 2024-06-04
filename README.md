@@ -1,9 +1,45 @@
 # flutter Study
 ## 도서 <코드팩토리의 플러터 프로그래밍 2판>
-### 프론트엔드 개발자 한의 개인 공부 - 플러터편
+프론트엔드 개발자 한의 개인 공부 - 플러터편
 <br/>
 
-#### random_dice (무작위 주사위)
+### vid_player (비디오 재생기)
+#### 라이프 사이클
+- initState
+- didUpdateWidget
+- dispose
+#### image_picker 패키지
+- pickVideo
+#### video_player 패키지
+- VideoPlayer 위젯
+- CustomVideoPlayer
+  - XFile
+- VideoPlayerController
+  - addListener
+  - removeListener
+  - seekTo( )
+#### 클래스, 함수 관련
+- Duration 클래스
+- async await
+#### 위젯 
+- File 위젯
+- BoxDecoration 위젯
+  - LinearGradient 위젯
+- GestureDetector 위젯
+  - GestureTapCallback 함수
+- Text 위젯
+  - copyWith 함수
+- 아이콘을 컴포넌트화 
+  - IconData
+- GestureDetector 위젯
+- AspectRatio 위젯
+- Stack 위젯, Align 위젯
+- Positioned 위젯
+- Slider 위젯
+    
+<br/>
+
+### random_dice (무작위 주사위)
 - 테마 : SliderThemeData, BottomNavigationBarThemeData
   - BottomNavigationBar 위젯
   - BottomNavigationBarItem 위젯
@@ -16,7 +52,7 @@
 
 <br/>
 
-#### u_and_i (디데이)
+### u_and_i (디데이)
 - 폰트
 - 테마
 - StatefulWidget State 
@@ -27,7 +63,7 @@
 
 <br/>
 
-#### image_carousel (전자 액자)
+### image_carousel (전자 액자)
 - 이미지 스와이프 기능
 - StatefulWidget
 - PageView 위젯
@@ -39,12 +75,12 @@
 
 <br/>
 
-#### flutter_webview
+### flutter_webview
 - 2024.05.28
 
 <br/>
 
-#### splash_screen
+### splash_screen
 - Scaffold
 - Container, BoxDecoration
 - Row, Column
