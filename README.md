@@ -3,6 +3,43 @@
 프론트엔드 개발자 한의 개인 공부 - 플러터편
 <br/>
 
+### video_call (영상 통화)
+- setState( )
+#### agora_rtc_engine 패키지
+- RtcEngine
+  - createAgoraRtcEngine( )
+  - initialize( )
+  - registerEventHandler( )
+  - setClientRole( )
+  - enableVideo( )
+  - startPreview( )
+  - joinChannel( )
+- RtcEngineContext 위젯
+- RtcEngineEventHandler 위젯
+  - onJoinChannelSuccess( )
+  - onLeaveChannel( )
+  - onUserJoined( )
+  - onUserOffline( )
+- AgoraVideoView 위젯
+  - VideoViewController 위젯 (.remote 생성자)
+    - VideoCanvas 위젯
+    - RtcConnection 위젯
+#### permission_handler 패키지 (권한)
+- Permission request( )
+- PermissionStatus
+#### camera 패키지
+#### 위젯
+- MaterialApp
+  - Navigator
+  - MaterialPageRoute
+- AppBar
+- FutureBuilder
+- Padding
+- Column (end, stretch)
+- ElevatedButton
+
+<br/>
+
 ### vid_player (비디오 재생기)
 #### 라이프 사이클
 - initState
