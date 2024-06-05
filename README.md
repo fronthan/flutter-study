@@ -28,6 +28,11 @@
 - Permission request( )
 - PermissionStatus
 #### camera 패키지
+- video_basic.dart 파일
+  - CameraDescription
+  - availableCameras( )
+  - CameraController
+  - CameraPreview 위젯
 #### 위젯
 - MaterialApp
   - Navigator
