@@ -1,7 +1,34 @@
 # flutter Study
 ## 도서 <코드팩토리의 플러터 프로그래밍 2판>
 프론트엔드 개발자 한의 개인 공부 - 플러터편
+<p> 2024.05.28 ~ </p>
 <br/>
+
+### chool_check (위치 기반 출석 체크)
+- AlertDialog 위젯
+- Navigator
+- AppBar 위젯
+#### google_maps_flutter
+- 설정
+  - App.Delegate.swift 수정
+  - ios/Podfile ios 버전 수정
+- FutureBuilder
+  - snapshot
+- GoogleMap
+  - CameraPosition
+  - LatLng
+  - Marker
+  - Circle
+#### geolocator (위치 서비스 플러그인)
+- Geolocator
+  - getCurrentPosition( )
+  - distanceBetween( )
+  - isLocationServiceEnabled( )
+  - checkPermission( )
+    - LocationPermission : denied / deniedForever
+  - requestPermission( )
+
+<br />
 
 ### video_call (영상 통화)
 - setState( )
@@ -113,12 +140,10 @@
 - Timer
 - SystemChrome
 - Image 위젯
-- 2024.05.30
 
 <br/>
 
 ### flutter_webview
-- 2024.05.28
 
 <br/>
 
@@ -127,4 +152,3 @@
 - Container, BoxDecoration
 - Row, Column
 - CircularProgressIndicator 로딩바
-- 2024.05.28
