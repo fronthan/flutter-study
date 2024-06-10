@@ -4,6 +4,39 @@
 <p> 2024.05.28 ~ </p>
 <br/>
 
+### image_editor (이미지 편집기)
+- Model 선언, 사용
+#### image_picker
+- pickImage( )
+#### image_gallery_saver
+- saveImage( )
+#### uuid
+- v4( )
+#### dart
+- io
+- ui
+  - VoidCallback
+  - ImageByteFormat
+- typed_data
+#### 위젯
+- Transform
+  - Matrix4
+- GestureDetector
+  - onTap( )
+  - onScaleUpdate( )
+  - onScaleEnd( )
+- SingleChildScrollView
+- List
+- RepaintBoundary
+  - findRenderObject( )
+  - toImage( )
+  - toByteData( )
+- InteractiveViewer
+- ScaffoldMessenger
+  - SnackBar
+
+<br />
+
 ### chool_check (위치 기반 출석 체크)
 - AlertDialog 위젯
 - Navigator
