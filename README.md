@@ -4,6 +4,19 @@
 <p> 2024.05.28 ~ </p>
 <br/>
 
+### cf_tube (유튜브 재생기)
+- RefreshIndicator 위젯
+- BouncingScrollPhysics 위젯
+- Future 위젯, FutureBuilder 인터페이스
+#### youtube_player_flutter (유튜브 API)
+- YoutubePlayer
+- YoutubePlayerController
+- YoutubePlayerFlags
+#### dio (http 요청)
+- get( )
+
+<br />
+
 ### image_editor (이미지 편집기)
 - Model 선언, 사용
 #### image_picker
