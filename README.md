@@ -7,6 +7,7 @@
 ### calendar_schedular 2 (일정 관리 - nest.js & Provider)
 - 모델
 - cache with 긍정적 응답
+- server 폴더 들어가서 npm run start:dev 해야 작동함
 #### dio (http)
 - Dio
   - get( ), post( ), delete( )
