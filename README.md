@@ -4,6 +4,57 @@
 <p> 2024.05.28 ~ </p>
 <br/>
 
+### calendar_scheduler 2 (일정 관리 로컬 DB)
+#### path (경로)
+#### dio (http)
+#### provider (글로벌 상태 관리)
+#### uuid
+#### drift_dev (Drift 코드 생성 기능)
+#### build_runner (code generation 을 실행)
+
+<br/>
+
+### calendar_scheduler 1 (일정 관리 로컬 DB)
+- ListView 위젯
+- TextFormField 위젯
+  - cursorColor, expands, keyboardType, inputFormatters
+  - InputDecoration 위젯
+    - suffixText, filled, fillColor
+- FloatingActionButton 위젯
+  - showModalBottomSheet( )
+  - isScrollControlled
+- MediaQuery 키보드 크기 가져오기
+- Dismissible 위젯 (밀어서 삭제하기)
+- Form
+  - FormState
+  - FormFieldSetter, FormFieldValidator
+  - validate( ), save( )
+#### table_calendar (달력)
+- TableCalendar
+- CalendarStyle
+#### intl (다국어)
+- initializeDateFormatting( )
+#### drift (SQLite DB 쿼리 code generation)
+- Table : 테이블 선언
+- LocalDatabase( )
+- part
+- Stream
+- LazyDatabase
+- NativeDatabase
+#### dart:io
+- File
+#### sqlite3_flutter_libs (SQLite DB, 파일 기반 로컬 데이터베이스)
+#### path_provider (경로)
+- getApplicationDocumentsDirectory( )
+#### path (경로)
+#### get_it (프로젝트 전역 의존성 주입)
+- registerSingleton( )
+#### drift_dev (Drift 코드 생성 기능)
+#### build_runner (code generation 을 실행)
+- dart run build_runner build
+
+<br/>
+
 ### cf_tube (유튜브 재생기)
 - RefreshIndicator 위젯
 - BouncingScrollPhysics 위젯
