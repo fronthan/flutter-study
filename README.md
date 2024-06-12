@@ -4,17 +4,20 @@
 <p> 2024.05.28 ~ </p>
 <br/>
 
-### calendar_scheduler 2 (일정 관리 로컬 DB)
-#### path (경로)
+### calendar_scheduler 2 (일정 관리 - nest.js & Provider)
+- 모델
+- cache with 긍정적 응답
 #### dio (http)
+- Dio
+  - get( ), post( ), delete( )
 #### provider (글로벌 상태 관리)
+- ChangeNotifierProvider
 #### uuid
-#### drift_dev (Drift 코드 생성 기능)
-#### build_runner (code generation 을 실행)
+- uuid.v4( )
 
 <br/>
 
-### calendar_scheduler 1 (일정 관리 로컬 DB)
+### calendar_scheduler 1 (일정 관리 - 로컬 DB)
 - ListView 위젯
 - TextFormField 위젯
   - cursorColor, expands, keyboardType, inputFormatters
