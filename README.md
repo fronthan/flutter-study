@@ -4,7 +4,7 @@
 <p> 2024.05.28 ~ </p>
 <br/>
 
-### calendar_scheduler 2 (일정 관리 - nest.js & Provider)
+### calendar_schedular 2 (일정 관리 - nest.js & Provider)
 - 모델
 - cache with 긍정적 응답
 #### dio (http)
@@ -17,7 +17,7 @@
 
 <br/>
 
-### calendar_scheduler 1 (일정 관리 - 로컬 DB)
+### calendar_schedular 1 (일정 관리 - 로컬 DB)
 - ListView 위젯
 - TextFormField 위젯
   - cursorColor, expands, keyboardType, inputFormatters
