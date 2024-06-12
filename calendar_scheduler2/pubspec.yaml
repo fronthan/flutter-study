@@ -37,9 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.6
   table_calendar: 3.0.9 # 달력
   intl: 0.18.1 # 다국어화
-  drift: 2.13.0 # Drift ORM
-  sqlite3_flutter_libs: 0.5.17 # SQLite DB
-  get_it: 7.6.4 # 프로젝트 전역에 대한 의존성
   dio: 4.0.6
   provider: 6.0.3 # 상태 관리
   uuid: 3.0.6
@@ -54,8 +51,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
-  drift_dev: 2.13.0 # drift 코드 생성
-  build_runner: 2.4.6  # 플러터에서의 코드 생성 기능
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
