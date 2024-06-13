@@ -4,6 +4,10 @@
 <p> 2024.05.28 ~ </p>
 <br/>
 
+### calendar_scheduler_jwt (일정 관리)
+
+<br/>
+
 ### calendar_scheduler_firestore (일정 관리)
 #### cloud_firestore
 - minSdk 21 필수
