@@ -1,22 +1,22 @@
-import 'package:calendar_scheduler/const/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:calendar_scheduler/const/colors.dart';
 
 /** 메인 달력 */
 class MainCalendar extends StatelessWidget {
-  final OnDaySelected onDaySelected; //날짜 선택 함수
   final DateTime selectedDate; //선택된 날짜
+  final OnDaySelected onDaySelected; //날짜 선택 함수 (home_screen에 정의된 것이 넘어온다.)
 
   MainCalendar({
-    required this.onDaySelected,
     required this.selectedDate,
+    required this.onDaySelected,
   });
 
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
       locale: 'ko_kr',
-      firstDay: DateTime(2024, 1, 1),//첫째날
+      firstDay: DateTime(2024, 1, 1),//첫째 날
       lastDay: DateTime(2030, 12, 31),//마지막 날
       focusedDay: DateTime.now(), //화면에 보여지는 날
 

@@ -1,5 +1,5 @@
-import 'package:calendar_scheduler/const/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:calendar_scheduler/const/colors.dart';
 
 /** 오늘의 일정 배너 */
 class TodayBanner extends StatelessWidget {

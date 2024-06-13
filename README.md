@@ -4,7 +4,27 @@
 <p> 2024.05.28 ~ </p>
 <br/>
 
-### calendar_schedular 2 (일정 관리 - nest.js & Provider)
+### calendar_scheduler_firestore (일정 관리)
+#### cloud_firestore
+- minSdk 21 필수
+- Firebase
+  - initializeApp( )
+- QuerySnapshot
+  - QueryDocumentSnapshot
+  - snapshots( )
+  - where( )
+#### 위젯
+- FloatingActionButton
+  - showModalBottomSheet( )
+  - ScheduleBottomSheet
+#### 기타
+- intl
+- uuid
+- table_calendar
+
+<br/>
+
+### calendar_scheduler_provider (일정 관리 - nest.js & Provider)
 - 모델
 - cache with 긍정적 응답
 - server 폴더 들어가서 npm run start:dev 해야 작동함
@@ -18,7 +38,7 @@
 
 <br/>
 
-### calendar_schedular 1 (일정 관리 - 로컬 DB)
+### calendar_scheduler_drift (일정 관리 - 로컬 DB)
 - ListView 위젯
 - TextFormField 위젯
   - cursorColor, expands, keyboardType, inputFormatters

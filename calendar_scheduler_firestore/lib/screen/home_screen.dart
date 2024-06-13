@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:calendar_scheduler/const/colors.dart';
 import 'package:calendar_scheduler/model/schedule.dart';
-import 'package:calendar_scheduler/component/schedule_bottom_sheet.dart';
-import 'package:calendar_scheduler/component/schedule_card.dart';
-import 'package:calendar_scheduler/component/today_banner.dart';
 import 'package:calendar_scheduler/component/main_calendar.dart';
+import 'package:calendar_scheduler/component/today_banner.dart';
+import 'package:calendar_scheduler/component/schedule_card.dart';
+import 'package:calendar_scheduler/component/schedule_bottom_sheet.dart';
 
 /** HomeScreen 메인 */
 class HomeScreen extends StatefulWidget {
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: PRIMARY_COLOR,
         child: Icon(Icons.add, color: Colors.white),
         onPressed: () {
-          showModalBottomSheet(//BottomSheet 열기 함수 (아래에서 위로 호하면을 덮는 위젯)
+          showModalBottomSheet(//BottomSheet 열기 함수 (아래에서 위로 화면을 덮는 위젯)
             context: context,
             builder: (_) => ScheduleBottomSheet(
               selectedDate: selectedDate,
@@ -46,13 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
       body: SafeArea(child: Column(
         children: [
+          ///달력
           MainCalendar(
             selectedDate: selectedDate,//선택된 날짜 전달
             onDaySelected: (selectedDate, focusedDate) => onDaySelected(selectedDate, focusedDate, context), //날짜 선택 시
           ),
 
-          SizedBox(height: 8.0),
+          SizedBox(height: 10.0),
           
+          /// 오늘 날짜랑 일정 갯수 배너
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance.collection('schedule')
               .where('date', isEqualTo: '${selectedDate.year}${selectedDate.month}${selectedDate.day}').snapshots(),
@@ -65,6 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           SizedBox(height: 8.0),
+
+          /// 선택된 날짜의 상세 목록
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance.collection('schedule')
@@ -101,8 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       onDismissed: (DismissDirection direction) {
                         //파이어스토어 특정 문서 삭제
                         FirebaseFirestore.instance.collection('schedule')
-                        .doc(schedule.id)
-                        .delete();
+                          .doc(schedule.id)
+                          .delete();
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
@@ -124,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// 달력에서 날짜 선택될 때마다 실행하는 함수
-  void onDaySelected(DateTime selectedDate, DateTime focusedDate, BuildContext context) {
+  void onDaySelected(DateTime selectedDate, DateTime focusedDate, BuildContext context) {//찍어보니 selectedDate와 focusedDate는 같다.
     setState(() {
       this.selectedDate = selectedDate;
     });

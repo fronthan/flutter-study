@@ -37,8 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.6
   table_calendar: 3.0.9 # 달력
   intl: 0.18.1 # 다국어화
-  dio: 4.0.6
-  provider: 6.0.3 # 상태 관리
   uuid: 3.0.6
   firebase_core: 2.19.0
   cloud_firestore: 4.11.0

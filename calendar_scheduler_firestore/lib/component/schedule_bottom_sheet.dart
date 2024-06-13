@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
+import 'package:calendar_scheduler/const/colors.dart';
 import 'package:calendar_scheduler/model/schedule.dart';
 import 'package:calendar_scheduler/component/custom_text_field.dart';
-import 'package:calendar_scheduler/const/colors.dart';
-import 'package:uuid/uuid.dart';
 
 
 /** 하단 일정 생성 위젯 */
@@ -54,7 +54,8 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
                     ),
                     const SizedBox(width: 16.0),
                     Expanded(
-                      child: CustomTextField(label: '종료 시간', isTime: true,
+                      child: CustomTextField(
+                        label: '종료 시간', isTime: true,
                         onSaved: (String? val) {
                           endTime = int.parse(val!);
                         },
@@ -65,7 +66,8 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
                 ),
                 SizedBox(height: 8.0),
                 Expanded(
-                  child: CustomTextField(label: '내용', isTime: false,
+                  child: CustomTextField(
+                    label: '내용', isTime: false,
                     onSaved: (String? val) {
                       content = val;
                     },

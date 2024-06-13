@@ -33,7 +33,7 @@ class ScheduleModel {
     };
   }
 
-  ///copyWith : 현재 모델을 특정 속성만 변환해서 새로 생성
+  /// copyWith : 현재 모델을 특정 속성만 변환해서 새로 생성
   ScheduleModel copyWith({
     String? id,
     String? content,
