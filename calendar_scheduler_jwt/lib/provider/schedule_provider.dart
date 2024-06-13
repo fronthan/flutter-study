@@ -52,6 +52,49 @@ class ScheduleProvider extends ChangeNotifier {
     );
   }
 
+  ///로그인 함수
+  Future<void> login({
+    required String email,
+    required String password
+  }) async {
+    final resp = await authRepository.login(
+      email: email,
+      password: password
+    );
+
+    updateTokens(
+      refreshToken: resp.refreshToken,
+      accessToken: resp.accessToken
+    );
+  }
+
+  /// 로그아웃 함수
+  logout() {
+    refreshToken = null;
+    accessToken = null;
+
+    cache = {};
+    notifyListeners();
+  }
+
+  /// 토큰 재발급 함수
+  rotateToken({
+    required String refAccessToken,
+    required bool isRefreshToken
+  }) async {
+    if (isRefreshToken) {
+      final token = await authRepository.rotateToken(token: refAccessToken, type: 'refresh');
+
+      this.refreshToken = token;
+    } else {
+      final token = await authRepository.rotateToken(token: refAccessToken, type: 'access');
+
+      this.accessToken = token;
+    }
+
+    notifyListeners();    
+  }
+
   void getSchedules({
     required DateTime date,
   }) async {
