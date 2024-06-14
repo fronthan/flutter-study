@@ -39,8 +39,7 @@ dependencies:
   intl: 0.18.1 # 다국어화
   uuid: 3.0.6
   dio: 4.0.6
-  firebase_core: 2.19.0
-  cloud_firestore: 4.11.0
+  provider: 6.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,35 +1,31 @@
-import 'package:calendar_scheduler/firebase_options.dart';
-import 'package:calendar_scheduler/provider/schedule_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:provider/provider.dart';
+import 'package:calendar_scheduler/provider/main_provider.dart';
 import 'package:calendar_scheduler/repository/auth_repository.dart';
 import 'package:calendar_scheduler/repository/schedule_repository.dart';
 import 'package:calendar_scheduler/screen/auth_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
-// import 'package:calendar_scheduler/screen/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();//플러터 프레임워크가 준비될 때까지 대기
 
-  //firebase 설정 추가
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform //firebase_options.dart 파일에 설정된 프로젝트 설정으로 설정
-  );
+  await initializeDateFormatting();
 
-  await initializeDateFormatting(); //intl 패키지 초기화(다국어화)
-
+  //상태 관리
   final scheduleRepository = ScheduleRepository();
   final authRepository = AuthRepository();
-  final scheduleProvider = ScheduleProvider(
+  final mainProvider = MainProvider(
     scheduleRepository: scheduleRepository,
     authRepository: authRepository
   );
 
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      // home: HomeScreen(),
-      home: AuthScreen(),
+    ChangeNotifierProvider(
+      create: (_) => mainProvider,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: AuthScreen(),
+      ),
     )
   );
 }

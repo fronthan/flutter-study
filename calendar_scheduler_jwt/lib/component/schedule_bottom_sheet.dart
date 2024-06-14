@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:calendar_scheduler/model/schedule.dart';
-import 'package:calendar_scheduler/component/custom_text_field.dart';
+import 'package:provider/provider.dart';
 import 'package:calendar_scheduler/const/colors.dart';
-import 'package:uuid/uuid.dart';
+import 'package:calendar_scheduler/model/schedule.dart';
+import 'package:calendar_scheduler/provider/main_provider.dart';
+import 'package:calendar_scheduler/component/custom_text_field.dart';
 
 
 /** 하단 일정 생성 위젯 */
@@ -126,19 +126,15 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
 
       formKey.currentState!.save(); //폼 저장. 모든 onSaved의 함수 실행
 
-      ///일정 생성하기
-      final schedule = ScheduleModel(//일정 모델 생성
-        id: Uuid().v4(),
-        content: content!,
-        date: widget.selectedDate,
-        startTime: startTime!,
-        endTime: endTime!
+      context.read<MainProvider>().createSchedule(
+        schedule: ScheduleModel(
+          id: 'new_model',  // 임시 ID
+          content: content!,
+          date: widget.selectedDate,
+          startTime: startTime!,
+          endTime: endTime!,
+        ),
       );
-
-      //일정 모델 파이어스토어에 추가
-      await FirebaseFirestore.instance
-        .collection('schedule').doc(schedule.id)
-        .set(schedule.toJson());
 
       Navigator.of(context).pop(); //일정 생성 후 화면 뒤로
     }

@@ -1,25 +1,25 @@
-import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter/material.dart';
 import 'package:calendar_scheduler/model/schedule.dart';
 import 'package:calendar_scheduler/repository/schedule_repository.dart';
 import 'package:calendar_scheduler/repository/auth_repository.dart';
 
-class ScheduleProvider extends ChangeNotifier {
-  final ScheduleRepository scheduleRepository; // ➊ API 요청 로직을 담은 클래스
+class MainProvider extends ChangeNotifier {
+  final ScheduleRepository scheduleRepository; // API 요청 로직을 담은 클래스
   final AuthRepository authRepository;
 
   String? accessToken;
   String? refreshToken;
 
-  DateTime selectedDate = DateTime.utc(
-    // ➋ 선택한 날짜
+  DateTime selectedDate = DateTime.utc(// 선택한 날짜
     DateTime.now().year,
     DateTime.now().month,
     DateTime.now().day,
   );
+
   Map<DateTime, List<ScheduleModel>> cache = {}; // ➌ 일정 정보를 저장해둘 변수
 
-  ScheduleProvider({
+  MainProvider({
     required this.scheduleRepository,
     required this.authRepository,
   }) : super();
@@ -40,6 +40,7 @@ class ScheduleProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// 회원가입 함수
   Future<void> register({
     required String email,
     required String password
@@ -72,8 +73,8 @@ class ScheduleProvider extends ChangeNotifier {
   logout() {
     refreshToken = null;
     accessToken = null;
-
     cache = {};
+
     notifyListeners();
   }
 
@@ -82,29 +83,34 @@ class ScheduleProvider extends ChangeNotifier {
     required String refAccessToken,
     required bool isRefreshToken
   }) async {
-    if (isRefreshToken) {
+    if (isRefreshToken) {// 리프레시 토큰
       final token = await authRepository.rotateToken(token: refAccessToken, type: 'refresh');
 
       this.refreshToken = token;
-    } else {
+    } else {// 액세스 토큰
       final token = await authRepository.rotateToken(token: refAccessToken, type: 'access');
 
-      this.accessToken = token;
+      accessToken = token;
     }
 
     notifyListeners();    
   }
 
+  /// 일정 가져오기
   void getSchedules({
     required DateTime date,
   }) async {
-    final resp = await scheduleRepository.getSchedules(date: date); // GET 메서드 보내기
+    final resp = await scheduleRepository.getSchedules(
+      date: date,
+      accessToken: accessToken!,
+    ); // GET 메서드 보내기
 
-    cache.update(date, (value) => resp, ifAbsent: () => resp); // ➊ 선택한 날짜의 일정들 업데이트하기
+    cache.update(date, (value) => resp, ifAbsent: () => resp); // 선택한 날짜의 일정들 업데이트하기
 
-    notifyListeners(); // ➋ Listening 하는 위젯들 업데이트하기
+    notifyListeners(); // Listening 하는 위젯들 업데이트하기
   }
 
+  /// 일정 생성
   void createSchedule({
     required ScheduleModel schedule,
   }) async {
@@ -132,28 +138,26 @@ class ScheduleProvider extends ChangeNotifier {
     notifyListeners(); // 캐시업데이트 반영하기
 
     try {
-      final savedSchedule = await scheduleRepository.createSchedule(schedule: schedule); // API 요청을 합니다.
+      final savedSchedule = await scheduleRepository.createSchedule(
+        schedule: schedule,
+        accessToken: accessToken!
+      ); // API 요청을 합니다.
 
-      cache.update(
-        // ➊ 서버 응답 기반으로 캐시 업데이트
+      cache.update(// 서버 응답 기반으로 캐시 업데이트
         targetDate,
-        (value) => value
-            .map((e) => e.id == tempId
-                ? e.copyWith(
-                    id: savedSchedule,
-                  )
-                : e)
-            .toList(),
+        (value) => value.map(
+          (e) => e.id == tempId ? e.copyWith(id: savedSchedule) : e
+        ).toList(),
       );
     } catch (e) {
-      cache.update(
-        // ➋ 삭제 실패시 캐시 롤백하기
+      cache.update(// 삭제 실패시 캐시 롤백하기
         targetDate,
         (value) => value.where((e) => e.id != tempId).toList(),
       );
     }
   }
 
+  /// 일정 삭제
   void deleteSchedule({
     required DateTime date,
     required String id,
@@ -171,10 +175,13 @@ class ScheduleProvider extends ChangeNotifier {
     notifyListeners(); // 캐시업데이트 반영하기
 
     try {
-      await scheduleRepository.deleteSchedule(id: id); // ➊ 삭제함수 실행
+      await scheduleRepository.deleteSchedule(
+        id: id,
+        accessToken: accessToken!
+      ); // 삭제 함수 실행
     } catch (e) {
       cache.update(
-        // ➋ 삭제 실패시 캐시 롤백하기
+        // 삭제 실패시 캐시 롤백하기
         date,
         (value) => [...value, targetSchedule]..sort(
             (a, b) => a.startTime.compareTo(
@@ -187,6 +194,7 @@ class ScheduleProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// 선택한 날짜 변경
   void changeSelectedDate({
     required DateTime date,
   }) {

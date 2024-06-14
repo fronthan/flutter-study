@@ -5,6 +5,21 @@
 <br/>
 
 ### calendar_scheduler_jwt (일정 관리)
+- Platform.isAndroid
+- FormFieldSetter
+- FormFieldValidator
+- RoundedRectangleBorder
+- ScaffoldMessenger
+- Navigator
+#### provider (상태 관리)
+- context
+  - watch
+  - read
+#### convert
+- Codec
+- fise( )
+- encode( )
+#### Dio
 
 <br/>
 

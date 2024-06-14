@@ -21,8 +21,11 @@ class AuthRepository {
       }
     );
 
+    print('결과');
+    print(result);
+
     //record 타입으로 토큰 반환
-    return (refreshToken: result.data['refreshToken'] as String, accessToken:result.data['accessToken'] as String);
+    return (refreshToken: result.data['refreshToken'] as String, accessToken: result.data['accessToken'] as String);
   }
 
   /// 로그인 로직

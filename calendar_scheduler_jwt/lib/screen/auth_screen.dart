@@ -1,17 +1,20 @@
-import 'package:calendar_scheduler/provider/schedule_provider.dart';
-import 'package:calendar_scheduler/screen/home_screen.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:provider/provider.dart';
 import 'package:calendar_scheduler/const/colors.dart';
+import 'package:calendar_scheduler/provider/main_provider.dart';
+import 'package:calendar_scheduler/screen/home_screen.dart';
 import 'package:calendar_scheduler/component/login_text_field.dart';
 
+/** 로그인, 회원가입 위젯 */
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+  const AuthScreen({super.key});
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
 }
 
+/** 로그인, 회원가입 스테이트 */
 class _AuthScreenState extends State<AuthScreen> {
   //폼 제어를 위한. 제어하고 싶은 폼의 키 매개변수에 이 값을 입력해준다.
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -21,6 +24,8 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<MainProvider>();
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -47,7 +52,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     return '이메일을 입력해주세요.';
                   }
 
-                  RegExp reg = RegExp(r'^[\w-\.]+@([\w-]+\.+[\w-]{2,4}$');//이메일 정규표현식
+                  RegExp reg = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');//이메일 정규표현식
 
                   if (!reg.hasMatch(val!)) {
                     return '이메일 형식이 올바르지 않습니다.';
@@ -88,10 +93,10 @@ class _AuthScreenState extends State<AuthScreen> {
                     borderRadius: BorderRadius.circular(5.0)
                   )
                 ),
-                onPressed: () {
-
+                onPressed: () async {
+                  onRegisterPress(provider);
                 },
-                child: Text('회원가입'),
+                child: const Text('회원가입'),
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -102,9 +107,9 @@ class _AuthScreenState extends State<AuthScreen> {
                   )
                 ),
                 onPressed: () async {
-
+                  onLoginPress(provider);
                 },
-                child: Text('로그인'),
+                child: const Text('로그인'),
               ),
             ],
           ),
@@ -124,8 +129,8 @@ class _AuthScreenState extends State<AuthScreen> {
     return true;
   }
 
-  // 회원가입 로직
-  onRegisterPress(ScheduleProvider provider) async {
+  /// 회원가입 로직
+  onRegisterPress(MainProvider provider) async {
     if (!saveAndValidateForm()) {
       return;
     }
@@ -138,9 +143,9 @@ class _AuthScreenState extends State<AuthScreen> {
         password: password
       );
     } on DioError catch(e) {
-      message = e.response?.data['message'] ?? '알 수 없는 오류가 발생했습니다.';//에러가 있을 경우 저장, 메시지가 없다면 기본값 입력
+      message = e.response?.data['message'] ?? '회원가입 중 알 수 없는 오류가 발생했습니다. DioError';//에러가 있을 경우 저장, 메시지가 없다면 기본값 입력
     } catch(e) {
-      message = '알 수 없는 오류가 발생했습니다.';
+      message = '회원가입 중 알 수 없는 오류가 발생했습니다.';
     } finally {
       if (message != null) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -148,8 +153,40 @@ class _AuthScreenState extends State<AuthScreen> {
         );
       } else {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => HomeScreen(),
-        ));
+          MaterialPageRoute(builder: (_) => HomeScreen())
+        );
+      }
+    }
+  }
+
+  /// 로그인 로직
+  onLoginPress(MainProvider provider) async {
+    if (!saveAndValidateForm()) {
+      return;
+    }
+
+    String? message;
+
+    try {
+      await provider.login(
+        email: email,
+        password: password
+      );
+    } on DioError catch(e) {
+      message = e.response?.data['message'] ?? '알 수 없는 오류가 발생했습니다. DioError catch';
+    } catch(e) {
+      message = '알 수 없는 오류가 발생했습니다. catch';
+    } finally {
+      if (message != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message)),
+        );
+      } else {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => HomeScreen()
+          )
+        );
       }
     }
   }

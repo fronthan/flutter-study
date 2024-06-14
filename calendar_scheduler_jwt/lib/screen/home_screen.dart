@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'package:calendar_scheduler/const/colors.dart';
-import 'package:calendar_scheduler/model/schedule.dart';
-import 'package:calendar_scheduler/component/schedule_bottom_sheet.dart';
-import 'package:calendar_scheduler/component/schedule_card.dart';
-import 'package:calendar_scheduler/component/today_banner.dart';
+import 'package:calendar_scheduler/provider/main_provider.dart';
 import 'package:calendar_scheduler/component/main_calendar.dart';
+import 'package:calendar_scheduler/component/today_banner.dart';
+import 'package:calendar_scheduler/component/schedule_card.dart';
+import 'package:calendar_scheduler/component/schedule_bottom_sheet.dart';
 
 /** HomeScreen 메인 */
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+/** HomeScreen 스테이트 */
 class _HomeScreenState extends State<HomeScreen> {
 
   //선택된 날짜를 관리할 변수
@@ -24,10 +25,21 @@ class _HomeScreenState extends State<HomeScreen> {
     DateTime.now().day
   );
 
+  @override
+  void initState() {
+    super.initState();
+
+    final provider = context.read<MainProvider>(); // 프로바이더 변경이 있을 때마다 build() 함수 재실행
+    provider.getSchedules(date: selectedDate); //이 부분이 실행되고 나면 캐시에 날짜와 일정이 업데이트된다.
+  }
+
   /// 메인 위젯
   @override
   Widget build(BuildContext context) {
-   
+    final provider = context.watch<MainProvider>(); // 프로바이더 변경이 있을 때마다 build() 함수 재실행
+    final selectedDate = provider.selectedDate; // 선택된 날짜 가져오기
+    final schedules = provider.cache[selectedDate] ?? [];
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(//새 일정 추가 버튼
         backgroundColor: PRIMARY_COLOR,
@@ -52,68 +64,33 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           SizedBox(height: 8.0),
-          
-          StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('schedule')
-              .where('date', isEqualTo: '${selectedDate.year}${selectedDate.month}${selectedDate.day}').snapshots(),
-            builder: (ctx, snst) {
-              return TodayBanner(
-                selectedDate: selectedDate,
-                count: snst.data?.docs.length ?? 0
-              );
-            }
+                    
+          TodayBanner(
+            selectedDate: selectedDate,
+            count: schedules.length,
           ),
 
           SizedBox(height: 8.0),
           Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('schedule')
-                .where('date', isEqualTo: '${selectedDate.year}${selectedDate.month}${selectedDate.day}').snapshots(),
-              
-              builder: (context, snapshot) {
-                //steam을 가져오는 동안 에러가 났을 때
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text('일정 정보를 가져오지 못했습니다.'),
-                  );
-                }
-
-                // 로딩 중일 때 보여줄 화면
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Container();
-                }
-
-                //ScheduleModel 데이터 매핑
-                final schedules = snapshot.data!.docs.map(
-                  (QueryDocumentSnapshot e) => ScheduleModel.fromJson(
-                    json: (e.data() as Map<String, dynamic>)
+            child: ListView.builder(
+              itemCount: schedules.length,
+              itemBuilder: (ctx, idx) {
+                final schedule = schedules[idx];
+                
+                return Dismissible(
+                  key: ObjectKey(schedule.id),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (DismissDirection direction) {
+                    provider.deleteSchedule(date: selectedDate, id: schedule.id);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+                    child: ScheduleCard(
+                      startTime: schedule.startTime,
+                      endTime: schedule.endTime,
+                      content: schedule.content
+                    ),
                   ),
-                ).toList();
-
-                return ListView.builder(
-                  itemCount: schedules.length,
-                  itemBuilder: (ctx, idx) {
-                    final schedule = schedules[idx];
-                    
-                    return Dismissible(
-                      key: ObjectKey(schedule.id),
-                      direction: DismissDirection.endToStart,
-                      onDismissed: (DismissDirection direction) {
-                        //파이어스토어 특정 문서 삭제
-                        FirebaseFirestore.instance.collection('schedule')
-                        .doc(schedule.id)
-                        .delete();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
-                        child: ScheduleCard(
-                          startTime: schedule.startTime,
-                          endTime: schedule.endTime,
-                          content: schedule.content
-                        ),
-                      ),
-                    );
-                  }
                 );
               }
             )
@@ -124,9 +101,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// 달력에서 날짜 선택될 때마다 실행하는 함수
-  void onDaySelected(DateTime selectedDate, DateTime focusedDate, BuildContext context) {
-    setState(() {
-      this.selectedDate = selectedDate;
-    });
+  void onDaySelected(
+    DateTime selectedDate,
+    DateTime focusedDate,
+    BuildContext context
+  ) {
+    final provider = context.read<MainProvider>();
+    provider.changeSelectedDate(
+      date: selectedDate,
+    );
+    provider.getSchedules(date: selectedDate);
   }
 }
