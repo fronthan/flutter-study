@@ -4,7 +4,7 @@
 <p> 2024.05.28 ~ </p>
 <br/>
 
-### calendar_scheduler_snsauth (구글 로그인, 파이어베이스 인증)
+### calendar_scheduler_snsauth (구글 로그인, 파이어베이스 인증, 애드몹)
 - FractionallySizedBox 위젯
 #### google_sign_in
 - GoogleSignIn
@@ -13,6 +13,12 @@
 #### firebase_auth 
 - GoogleAuthProvider
 - FirebaseAuth
+#### google_mobile_ads
+- BannerAd
+- BannerAdListener
+- AdRequest
+- AdWidget
+<br/>
 
 ### calendar_scheduler_jwt (jwt)
 - Platform.isAndroid

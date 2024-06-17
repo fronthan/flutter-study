@@ -1,8 +1,11 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="b3509.calendar.scheduler">
     <application
-        android:label="calendar_scheduler"
+        android:label="일정 관리"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+           android:name="com.google.android.gms.ads.APPLICATION_ID"
+           android:value="ca-app-pub-3416505369340809~1602986316" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

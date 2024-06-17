@@ -1,3 +1,4 @@
+import 'package:calendar_scheduler/component/banner_ad_widget.dart';
 import 'package:calendar_scheduler/model/schedule.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -101,8 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                       .toList();
 
-                  return ListView.builder(
+                  return ListView.separated(//리스트 내부의 위젯 사이사이에 또 다른 위젯을 입력하고 싶을 때 사용
                     itemCount: schedules.length,
+
+                    separatorBuilder: (context, index) {
+                      return BannerAdWidget();
+                    },
                     itemBuilder: (context, index) {
                       final schedule = schedules[index];
 

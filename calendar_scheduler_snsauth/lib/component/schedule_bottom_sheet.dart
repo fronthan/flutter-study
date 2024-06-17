@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:calendar_scheduler/const/colors.dart';
 import 'package:calendar_scheduler/model/schedule.dart';
-import 'package:calendar_scheduler/provider/main_provider.dart';
 import 'package:calendar_scheduler/component/custom_text_field.dart';
 import 'package:uuid/uuid.dart';
 
@@ -19,7 +17,7 @@ class ScheduleBottomSheet extends StatefulWidget {
     Key? key
   }) : super(key: key);
 
-  @override
+  @override 
   State<ScheduleBottomSheet> createState() => _ScheduleBottomSheetState();    
 }
 
