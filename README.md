@@ -4,7 +4,17 @@
 <p> 2024.05.28 ~ </p>
 <br/>
 
-### calendar_scheduler_jwt (일정 관리)
+### calendar_scheduler_snsauth (구글 로그인, 파이어베이스 인증)
+- FractionallySizedBox 위젯
+#### google_sign_in
+- GoogleSignIn
+- GoogleSignInAccount
+- GoogleSignInAuthentication
+#### firebase_auth 
+- GoogleAuthProvider
+- FirebaseAuth
+
+### calendar_scheduler_jwt (jwt)
 - Platform.isAndroid
 - FormFieldSetter
 - FormFieldValidator
@@ -23,7 +33,7 @@
 
 <br/>
 
-### calendar_scheduler_firestore (일정 관리)
+### calendar_scheduler_firestore (파이어스토어)
 #### cloud_firestore
 - minSdk 21 필수
 - Firebase
@@ -43,7 +53,7 @@
 
 <br/>
 
-### calendar_scheduler_provider (일정 관리 - nest.js & Provider)
+### calendar_scheduler_provider (nest.js & Provider)
 - 모델
 - cache with 긍정적 응답
 - server 폴더 들어가서 npm run start:dev 해야 작동함
@@ -57,7 +67,7 @@
 
 <br/>
 
-### calendar_scheduler_drift (일정 관리 - 로컬 DB)
+### calendar_scheduler_drift (로컬 DB)
 - ListView 위젯
 - TextFormField 위젯
   - cursorColor, expands, keyboardType, inputFormatters

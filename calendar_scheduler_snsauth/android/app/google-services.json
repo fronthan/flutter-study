@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "482394865526",
+    "project_id": "calendar-scheduler-b3509",
+    "storage_bucket": "calendar-scheduler-b3509.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482394865526:android:dfb0e56903e18f4301c457",
+        "android_client_info": {
+          "package_name": "b3509.calendar.scheduler"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4iY9G4SVoIWXtVI_uPIeGYmSgoTxUVpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
